@@ -11,7 +11,7 @@ export default new Router({
         name: 'productList',
         component: ProductListPage
     }, {
-        path: '/item',
+        path: '/item/:hash',
         name: 'productItem',
         component: ProductItemPage
     }, {

@@ -34,12 +34,12 @@ export let productList = [{
         hash: makeid(),
         name: 'Puffer coat in green',
         sizes: {
-            S: 5,
+            S: 0,
             M: 1,
             L: 2
         },
         price: 3500,
-        image: 'product_c.jpeg'
+        image: 'product_b.jpeg'
     },
     {
         hash: makeid(),

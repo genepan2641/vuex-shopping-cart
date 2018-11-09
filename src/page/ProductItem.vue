@@ -4,12 +4,12 @@
             <p>is loading product...</p>
         </template>
         <template v-else>
-            <img :src="`static/images/${productDetail.image}`" alt="">
+            <img style="width: 300px;" :src="`static/images/${productDetail.image}`" alt="">
             <p>{{ productDetail.name }}</p>
             <p>{{ productDetail.price }}</p>
             <select v-model="selectedSize" name="" id="">
                 <option value="">choose your size</option>
-                <option v-for="(size, sizeName, sizeAmount) in productDetail.sizes" 
+                <option v-for="(size, sizeName) in productDetail.sizes" 
                     :value="sizeName"
                     :key="sizeName">
                     {{ sizeName }}
@@ -20,7 +20,7 @@
             <input v-model="selectedAmount" type="text" readonly>
             <button @click="addAmount()">+</button>
 
-            <button @click="checkout">CHECKOUT</button>
+            <button :disabled="!allowCheckout" @click="addToCart">CHECKOUT</button>
         </template>
     </div>
 </template>
@@ -39,8 +39,20 @@ export default {
         this.fetchProductDetail();
     },
     computed: {
+        // 剩餘可選數量
         availableAmount() {
             return this.productDetail.sizes[this.selectedSize];
+        },
+        allowCheckout() {
+            return this.selectedSize != '' &&
+                this.selectedAmount > 0 &&
+                this.selectedAmount <= this.availableAmount
+        }
+    },
+    watch: {
+        // 改變尺寸時要重置數量
+        selectedSize(val) {
+            this.selectedAmount = 1;
         }
     },
     methods: {
@@ -64,8 +76,12 @@ export default {
                 this.selectedAmount++;
             }
         },
-        checkout() {
-            this.$store.dispatch('checkout');
+        addToCart() {
+            this.$store.dispatch('cart/addToCart', {
+                hash: this.$route.params.hash,
+                size: this.selectedSize,
+                amount: this.selectedAmount
+            });
         }
     }
 }
