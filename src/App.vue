@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-link :to="{name: 'productList'}">list</router-link>
-    <router-link class="shopping-cart-link" :to="{name: 'shoppingCart'}">My Cart</router-link>
+    <router-link :to="{name: 'shoppingCart'}">My Cart</router-link>
     <router-view/>
   </div>
 </template>
@@ -12,7 +12,8 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "~@/assets/sass/_variables.scss";
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -23,7 +24,7 @@ export default {
 }
 
 html {
-  font-size: 10px;
+  font-size: 12px;
 }
 body,
 html {
@@ -33,13 +34,42 @@ html {
 
 a {
   text-decoration: none;
+  font-size: $font-size-5;
 }
 
-.shopping-cart-link {
-  background-color: yellow;
-  color: black;
-  display: inline-block;
-  padding: 30px 50px;
-  float: right;
+h1 {
+  font-size: $font-size-1;
+}
+
+h2 {
+  font-size: $font-size-2;
+}
+
+h3 {
+  font-size: $font-size-3;
+}
+
+h4 {
+  font-size: $font-size-4;
+}
+
+h5 {
+  font-size: $font-size-5;
+}
+
+h6 {
+  font-size: $font-size-6;
+}
+
+p {
+  font-size: $font-size-5;
+}
+
+.bold {
+  font-weight: 500;
+}
+
+.boldest {
+  font-weight: 700;
 }
 </style>

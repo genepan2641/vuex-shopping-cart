@@ -15,6 +15,9 @@ const cart = {
         ['UPDATE_CART'](state, payload) {
             // 把已經存在的 item 的 amount 改成新的數量
             Vue.set(state.cartList[payload.index], 'amount', payload.newAmount);
+        },
+        ['REMOVE_CART'](state, payload) {
+            Vue.delete(state.cartList, payload.index);
         }
     },
     actions: {
@@ -43,6 +46,7 @@ const cart = {
                 commit('ADD_CART', {
                     name: targetProductInfo.name,
                     image: targetProductInfo.image,
+                    price: targetProductInfo.price,
                     hash: payload.hash,
                     size: payload.size,
                     amount: payload.amount
@@ -58,14 +62,31 @@ const cart = {
             const productList = rootState.product.productList;
 
             function getItemPrice(hash) {
-                return productList.filter(ele => {
+                return productList.find(ele => {
                     return ele.hash == hash;
-                })[0].price;
+                }).price;
             }
             const newPrice = state.cartList.reduce((acc, curr) => {
-                return acc + getItemPrice(curr.hash);
+                return acc + getItemPrice(curr.hash) * curr.amount;
             }, 0);
             commit('UPDATE_PRICE', newPrice);
+        },
+        deleteCart({
+            state,
+            commit,
+            dispatch
+        }, payload) {
+            const {
+                hash,
+                size
+            } = payload;
+            const index = state.cartList.findIndex(ele => {
+                return ele.hash == hash && ele.size == size
+            });
+            commit('REMOVE_CART', {
+                index
+            });
+            dispatch('calculatePrice');
         }
     }
 }

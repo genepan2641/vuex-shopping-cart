@@ -12,9 +12,9 @@ export let productList = [{
         hash: makeid(),
         name: 'The North Face 1996 Retro Nuptse Vest in Black',
         sizes: {
-            S: 1,
-            M: 2,
-            L: 2
+            S: 9,
+            M: 7,
+            L: 14
         },
         price: 8200,
         image: 'product_c.jpeg'
@@ -23,9 +23,9 @@ export let productList = [{
         hash: makeid(),
         name: 'Puffer coat in purple',
         sizes: {
-            S: 3,
-            M: 2,
-            L: 4
+            S: 10,
+            M: 10,
+            L: 10
         },
         price: 2400,
         image: 'product_a.jpeg'
@@ -34,9 +34,9 @@ export let productList = [{
         hash: makeid(),
         name: 'Puffer coat in green',
         sizes: {
-            S: 0,
-            M: 1,
-            L: 2
+            S: 10,
+            M: 5,
+            L: 10
         },
         price: 3500,
         image: 'product_b.jpeg'
@@ -45,9 +45,9 @@ export let productList = [{
         hash: makeid(),
         name: 'Puffer coat in black with hood',
         sizes: {
-            S: 1,
-            M: 2,
-            L: 3
+            S: 5,
+            M: 4,
+            L: 8
         },
         price: 2780,
         image: 'product_d.jpeg'

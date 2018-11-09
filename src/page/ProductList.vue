@@ -44,7 +44,7 @@ export default {
 }
 
 .link-wrapper {
-  flex-basis: 30%;
-  margin: 10px;
+  flex: 1;
+  margin: 5px;
 }
 </style>

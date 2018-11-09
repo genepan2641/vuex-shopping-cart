@@ -8,7 +8,7 @@
             </div>
         </div>
         <div class="product-item__body">
-            <p class="product-item__name">{{ name | trimString }}</p>
+            <div class="product-item__name">{{ name | trimString }}</div>
             <p class="product-item__price">NT$ {{ price }}</p>
         </div>
     </div>
@@ -33,25 +33,33 @@ export default {
 <style lang="scss">
 @import "~@/assets/sass/_variables.scss";
 .product-item {
-  border: 1px solid #eee;
   border-radius: 4px;
+  &:hover {
+    .item-image__img {
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+  }
 
   &__body {
-    padding: 10px 10px 0;
+    padding: 10px 0px 0px;
   }
   &__name {
     text-align: left;
-    font-size: $font-size-4;
+    font-size: $font-size-6;
     font-weight: 500;
     color: map-get($colors, dark);
-    margin-top: 0;
+    margin: 0px;
+    height: 35px;
   }
 
   &__price {
-    font-size: $font-size-5;
-    font-weight: 700;
+    display: inline-block;
+    background-color: #eee;
+    padding: 3px 5px;
+    font-size: $font-size-6;
     color: map-get($colors, dark);
-    margin-bottom: 5px;
+    margin: 5px 0;
+    font-weight: 700;
   }
 }
 
@@ -61,16 +69,16 @@ export default {
 
   &__inner {
     width: 100%;
-    padding-top: 75%;
+    padding-top: 130%;
     position: relative;
   }
 
   &__img {
+    transition: 100ms all ease-out;
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 100%;
+    transform: translate(-50%, -50%) scale(1);
     max-height: 100%;
   }
 }
