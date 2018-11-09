@@ -16,16 +16,28 @@
                 </option>
             </select>
 
-            <button @click="substractAmount()">-</button>
-            <input v-model="selectedAmount" type="text" readonly>
-            <button @click="addAmount()">+</button>
+            <div>
+                <button @click="substractAmount()">-</button>
+                <input v-model="selectedAmount" type="text" readonly>
+                <button @click="addAmount()">+</button>
+            </div>
 
-            <button :disabled="!allowCheckout" @click="addToCart">CHECKOUT</button>
+
+            <button :disabled="!allowCheckout" @click="addToCart">ADD TO CART</button>
+            <p v-if="selectedSize">
+                <template v-if="availableAmount">
+                    size: {{ selectedSize }} {{ availableAmount }} left
+                </template>
+                <template v-else>
+                    size: {{ selectedSize }} is not available now
+                </template>
+            </p>
         </template>
     </div>
 </template>
 
 <script>
+import { mapState } from 'vuex';
 export default {
     data() {
         return {
@@ -39,9 +51,18 @@ export default {
         this.fetchProductDetail();
     },
     computed: {
+        ...mapState(['cart']),
+        // 購物車對應 size 的數量
+        sizeAmountInCart() {
+            const targetCart = this.cart.cartList.find(ele => {
+                return ele.hash == this.$route.params.hash &&
+                    ele.size == this.selectedSize
+            });
+            return targetCart ? targetCart.amount : 0;
+        },
         // 剩餘可選數量
         availableAmount() {
-            return this.productDetail.sizes[this.selectedSize];
+            return this.productDetail.sizes[this.selectedSize] - this.sizeAmountInCart;
         },
         allowCheckout() {
             return this.selectedSize != '' &&
@@ -82,6 +103,7 @@ export default {
                 size: this.selectedSize,
                 amount: this.selectedAmount
             });
+            this.selectedAmount = 1;
         }
     }
 }

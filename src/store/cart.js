@@ -1,7 +1,8 @@
+import Vue from 'vue';
 const cart = {
     namespaced: true,
     state: {
-        cart: [],
+        cartList: [],
         totalPrice: 0,
     },
     mutations: {
@@ -9,31 +10,44 @@ const cart = {
             state.totalPrice = newPrice;
         },
         ['ADD_CART'](state, payload) {
-            const targetCart = state.cart.find(ele => ele.hash == payload.hash);
-            const isExist = state.cart.some(ele => ele.hash == payload.hash);
+            state.cartList.push(payload);
+        },
+        ['UPDATE_CART'](state, payload) {
+            // 把已經存在的 item 的 amount 改成新的數量
+            Vue.set(state.cartList[payload.index], 'amount', payload.newAmount);
+        }
+    },
+    actions: {
+        addToCart({
+            state,
+            rootState,
+            commit,
+            dispatch
+        }, payload) {
+
+            const isExist = state.cartList.some(ele => {
+                return ele.hash == payload.hash &&
+                    ele.size == payload.size
+            });
             if (isExist) {
-                const index = state.cart.findIndex(ele => ele == targetCart);
-                state.cart[index] = {
-                    hash: payload.hash,
-                    size: payload.size,
-                    amount: targetCart.amount + payload.amount
-                }
+                const targetCart = state.cartList.find(ele => ele.hash == payload.hash &&
+                    ele.size == payload.size);
+                const index = state.cartList.findIndex(ele => ele == targetCart);
+                commit('UPDATE_CART', {
+                    index: index,
+                    newAmount: targetCart.amount + payload.amount
+                })
             } else {
-                state.cart.push({
+                const productList = rootState.product.productList;
+                const targetProductInfo = productList.find(ele => ele.hash == payload.hash);
+                commit('ADD_CART', {
+                    name: targetProductInfo.name,
+                    image: targetProductInfo.image,
                     hash: payload.hash,
                     size: payload.size,
                     amount: payload.amount
                 });
             }
-            // state.cart.push(payload);
-        }
-    },
-    actions: {
-        addToCart({
-            commit,
-            dispatch
-        }, payload) {
-            commit('ADD_CART', payload);
             dispatch('calculatePrice');
         },
         calculatePrice({
@@ -48,7 +62,7 @@ const cart = {
                     return ele.hash == hash;
                 })[0].price;
             }
-            const newPrice = state.cart.reduce((acc, curr) => {
+            const newPrice = state.cartList.reduce((acc, curr) => {
                 return acc + getItemPrice(curr.hash);
             }, 0);
             commit('UPDATE_PRICE', newPrice);

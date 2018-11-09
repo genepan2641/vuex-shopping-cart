@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    
+    <router-link :to="{name: 'productList'}">list</router-link>
+    <router-link class="shopping-cart-link" :to="{name: 'shoppingCart'}">My Cart</router-link>
     <router-view/>
   </div>
 </template>
@@ -32,5 +33,13 @@ html {
 
 a {
   text-decoration: none;
+}
+
+.shopping-cart-link {
+  background-color: yellow;
+  color: black;
+  display: inline-block;
+  padding: 30px 50px;
+  float: right;
 }
 </style>
