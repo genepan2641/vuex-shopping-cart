@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import ProductList from '@/page/ProductList'
-import ProductItem from '@/page/ProductItem'
+import ProductListPage from '@/page/ProductList'
+import ProductItemPage from '@/page/ProductItem'
 
 Vue.use(Router)
 
@@ -9,10 +9,13 @@ export default new Router({
     routes: [{
         path: '/list',
         name: 'productList',
-        component: ProductList
+        component: ProductListPage
     }, {
         path: '/item',
         name: 'productItem',
-        component: ProductItem
+        component: ProductItemPage
+    }, {
+        path: '*',
+        redirect: '/list'
     }]
 })
