@@ -25,13 +25,13 @@
 <script>
 import { mapState } from 'vuex';
 export default {
-    computed: {
-        ...mapState(['cart'])
-    }
+  computed: {
+    ...mapState(['cart'])
+  }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import "~@/assets/sass/_variables.scss";
 .cart-pop-out {
   width: 400px;

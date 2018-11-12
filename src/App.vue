@@ -2,7 +2,9 @@
   <div id="app">
     <app-nav></app-nav>
     
-    <router-view/>
+    <div class="page-container">
+      <router-view/>
+    </div>
   </div>
 </template>
 
@@ -44,6 +46,12 @@ a {
   font-size: $font-size-5;
 }
 
+button {
+  cursor: pointer;
+  appearance: none;
+  font-size: $font-size-5;
+}
+
 h1 {
   font-size: $font-size-1;
 }
@@ -78,7 +86,6 @@ p {
   padding: 8px 10px;
   outline: none;
   border-radius: 0px;
-  appearance: none;
   text-align: center;
   border: 1px solid black;
 }
@@ -89,8 +96,14 @@ p {
   padding: 8px 10px;
   outline: none;
   border-radius: 0px;
-  appearance: none;
   text-align: center;
+}
+
+.form-control {
+  border-radius: 0px;
+  border: 1px solid black;
+  height: 40px;
+  padding: 8px 10px;
 }
 
 .bold {
@@ -99,5 +112,10 @@ p {
 
 .boldest {
   font-weight: 700;
+}
+
+.page-container {
+  max-width: 960px;
+  margin: 45px auto 0px;
 }
 </style>

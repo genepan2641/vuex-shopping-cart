@@ -4,34 +4,48 @@
             <p>is loading product...</p>
         </template>
         <template v-else>
-            <img style="width: 300px;" :src="`static/images/${productDetail.image}`" alt="">
-            <p>{{ productDetail.name }}</p>
-            <p>{{ productDetail.price }}</p>
-            <select v-model="selectedSize" name="" id="">
-                <option value="">choose your size</option>
-                <option v-for="(size, sizeName) in productDetail.sizes" 
-                    :value="sizeName"
-                    :key="sizeName">
-                    {{ sizeName }}
-                </option>
-            </select>
+            <div class="item-page-container">
+                <div class="item-page__left">
+                    <div class="item-img__frame">
+                        <div class="item-img__inner">
+                            <img :src="`static/images/${productDetail.image}`" alt="">
+                        </div>
+                    </div>
+                </div>
 
-            <div>
-                <button @click="substractAmount()">-</button>
-                <input v-model="selectedAmount" type="text" readonly>
-                <button @click="addAmount()">+</button>
+                <div class="item-page__right">
+                    <p>{{ productDetail.name }}</p>
+                    <p>{{ productDetail.price }}</p>
+                    <select v-model="selectedSize" class="form-control" name="" id="">
+                        <option value="">choose your size</option>
+                        <option v-for="(sizeAmount, sizeName) in productDetail.sizes" 
+                            :value="sizeName"
+                            :key="sizeName">
+                            {{ sizeName }}
+                        </option>
+                    </select>
+                    <div>
+                        <button class="btn-primary" @click="substractAmount()">-</button>
+                        <input v-model="selectedAmount" class="form-control" type="text" readonly>
+                        <button class="btn-primary" @click="addAmount()">+</button>
+                    </div>
+
+                    <button :disabled="!allowCheckout" class="btn-secondary" @click="addToCart">ADD TO CART</button>
+                    <router-link  class="btn-primary" :to="{name: 'shoppingCart'}">View Cart</router-link>
+                    <p v-if="selectedSize">
+                        <template v-if="availableAmount">
+                            size: {{ selectedSize }} {{ availableAmount }} left
+                        </template>
+                        <template v-else>
+                            size: {{ selectedSize }} is not available now
+                        </template>
+                    </p>
+                </div>
             </div>
 
 
-            <button :disabled="!allowCheckout" @click="addToCart">ADD TO CART</button>
-            <p v-if="selectedSize">
-                <template v-if="availableAmount">
-                    size: {{ selectedSize }} {{ availableAmount }} left
-                </template>
-                <template v-else>
-                    size: {{ selectedSize }} is not available now
-                </template>
-            </p>
+
+
         </template>
     </div>
 </template>
@@ -109,5 +123,34 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "~@/assets/sass/_variables";
+.item-page-container {
+  display: flex;
+}
+
+.item-page {
+  &__left {
+    flex: 1;
+    margin-right: 30px;
+  }
+  &__right {
+    flex: 2;
+  }
+}
+.item-img {
+  &__frame {
+    width: 100%;
+    overflow: hidden;
+  }
+  &__inner {
+    padding-top: 100%;
+    position: relative;
+    img {
+      @include img-frame__img();
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+}
 </style>

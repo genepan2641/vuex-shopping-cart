@@ -1,16 +1,28 @@
 <template>
     <div class="shopping-cart-page">
-        shopp cart
+        <template v-if="cart.cartList.length > 0">
+                <div class="cart-item" v-for="item in cart.cartList" :key="`${item.hash}${item.size}`">
 
-        <div v-for="item in cart.cartList" :key="`${item.hash}${item.size}`">
-            <img style="width: 200px;" :src="`/static/images/${item.image}`" alt="">
-            <h3>{{ item.name }}</h3>
-            <p>{{ item.size }} x {{ item.amount }}</p>
-            <p>NT$ {{ item.price }}</p>
-            <button @click="deleteCart(item.hash, item.size)">delete</button>
-        </div>
+                    <router-link :to="{name: 'productItem', params: {hash: item.hash}}" class="cart-item__img-wrapper">
+                        <div class="cart-item__img-inner">
+                            <img class="cart-item__img" :src="`/static/images/${item.image}`" alt="">
+                        </div>
+                    </router-link>
+                    <div class="cart-item__right">
+                        <h3 class="cart-item__title">{{ item.name }}</h3>
+                        <p class="cart-item__desc">{{ item.size }} x {{ item.amount }}</p>
+                        <p class="cart-item__desc">NT$ {{ item.price }}</p>
+                    </div>
+                    <button @click="deleteCart(item.hash, item.size)">delete</button>
+                </div>
 
-        <p>total price: {{ cart.totalPrice }}</p>
+            <p>total price: {{ cart.totalPrice }}</p>
+        </template>
+        <template v-else>
+            <p>Nothing found in your cart here.</p>
+            <router-link class="btn-secondary" :to="{name: 'productList'}">Find Your Loved Ones!</router-link>
+        </template>
+
     </div>
 </template>
 
@@ -28,5 +40,27 @@ export default {
 }   
 </script>
 
-<style>
+<style lang="scss" scoped>
+@import "~@/assets/sass/_variables";
+.cart-item {
+  display: flex;
+  margin-bottom: 20px;
+  &__img-wrapper {
+    flex-basis: 200px;
+    overflow: hidden;
+    margin-right: 10px;
+  }
+  &__img-inner {
+    padding-top: 100%;
+    position: relative;
+  }
+  &__img {
+    @include img-frame__img();
+    max-width: 100%;
+    max-height: 100%;
+  }
+  &__right {
+    flex: 1;
+  }
+}
 </style>

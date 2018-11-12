@@ -9,4 +9,11 @@ $font-size-6: 1.2rem;
 $colors:(primary: #c0dfd9,
 secondary: #b3c2bf,
 dark: #3b3a36,
-light: #e9ece5)
+light: #e9ece5);
+
+@mixin img-frame__img() {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
