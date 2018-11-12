@@ -1,19 +1,26 @@
 <template>
   <div id="app">
-    <router-link :to="{name: 'productList'}">list</router-link>
-    <router-link :to="{name: 'shoppingCart'}">My Cart</router-link>
+    <app-nav></app-nav>
+    
     <router-view/>
   </div>
 </template>
 
 <script>
+import AppNav from '@/layout/AppNav.vue';
 export default {
+  components: {
+    AppNav
+  },
   name: 'App'
 }
 </script>
 
 <style lang="scss">
 @import "~@/assets/sass/_variables.scss";
+* {
+  box-sizing: border-box;
+}
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -63,6 +70,27 @@ h6 {
 
 p {
   font-size: $font-size-5;
+}
+
+.btn-primary {
+  background-color: white;
+  color: black;
+  padding: 8px 10px;
+  outline: none;
+  border-radius: 0px;
+  appearance: none;
+  text-align: center;
+  border: 1px solid black;
+}
+
+.btn-secondary {
+  background-color: black;
+  color: white;
+  padding: 8px 10px;
+  outline: none;
+  border-radius: 0px;
+  appearance: none;
+  text-align: center;
 }
 
 .bold {
