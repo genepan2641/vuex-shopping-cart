@@ -14,6 +14,8 @@
                 </div>
                 <!-- <button @click="deleteCart(item.hash, item.size)">delete</button> -->
             </div>
+
+            <p>total: <span class="boldest">NT${{ cart.totalPrice }}</span></p>
         </div>
         <div class="cart-pop-out__btns-wrapper">
             <router-link class="btn-primary cart-pop-out__btn" :to="{name: 'shoppingCart'}">View Cart</router-link>

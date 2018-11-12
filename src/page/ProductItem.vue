@@ -15,7 +15,7 @@
 
                 <div class="item-page__right">
                     <p>{{ productDetail.name }}</p>
-                    <p>{{ productDetail.price }}</p>
+                    <p class="boldest">NT${{ productDetail.price }}</p>
                     <select v-model="selectedSize" class="form-control" name="" id="">
                         <option value="">choose your size</option>
                         <option v-for="(sizeAmount, sizeName) in productDetail.sizes" 
