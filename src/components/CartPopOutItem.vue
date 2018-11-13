@@ -1,26 +1,23 @@
 <template>
     <div class="cart-item">
-        <router-link :to="{name: 'productItem', params: {hash: cartItem.hash}}" class="cart-item__img-wrapper">
+        <div class="cart-item__img-wrapper">
             <div class="cart-item__img-inner">
                 <img class="cart-item__img" :src="`/static/images/${cartItem.image}`" alt="">
             </div>
-        </router-link>
+        </div>
         <div class="cart-item__right">
             <h5 class="cart-item__title">{{ cartItem.name }}</h5>
             <p class="cart-item__desc">{{ cartItem.size }} x {{ cartItem.amount }}</p>
             <p class="cart-item__desc">NT$ {{ cartItem.price }}</p>
+            <button @click="()=>showDeleteConfirm = true" class="cart-item__delete-btn btn-primary" >X</button>
+            
+            <div v-if="showDeleteConfirm" class="delete-pop-out">
+                <p>Are you sure to delete this item?</p>
+                <button @click="deleteCart(cartItem.hash, cartItem.size)" class="btn-secondary">delete</button>
+                <button @click="()=>showDeleteConfirm = false" class="btn-primary">cancel</button>
+            </div>
         </div>
-
-
-        <div v-if="showDeleteConfirm">
-            <p>Are you sure to delete this item?</p>
-            <button @click="deleteCart(cartItem.hash, cartItem.size)" class="btn-secondary">delete</button>
-            <button @click="()=>showDeleteConfirm =false" class="btn-primary">cancel</button>
-        </div>
-
-        <div v-else>
-            <button @click="()=>showDeleteConfirm=true" class="btn-primary">delete</button>
-        </div>
+        
     </div>
 </template>
 
@@ -53,34 +50,51 @@ export default {
 @import "~@/assets/sass/_variables";
 .cart-item {
   display: flex;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  padding-right: 10px;
-  &:not(:last-child) {
-    border-bottom: 1px solid black;
-  }
+  margin-bottom: 5px;
   &__img-wrapper {
-    flex-basis: 100px;
-    overflow: hidden;
+    flex: 1 1 30px;
     margin-right: 10px;
   }
   &__img-inner {
     padding-top: 100%;
     position: relative;
+    img {
+      @include img-frame__img();
+      max-width: 100%;
+      max-height: 100%;
+    }
   }
-  &__img {
-    @include img-frame__img();
-    max-width: 100%;
-    max-height: 100%;
-  }
+
   &__right {
-    flex: 1;
+    flex: 2 1 150px;
+    position: relative;
   }
+
   &__title {
+    display: inline-block;
+    height: 40px;
     margin: 0 0 10px;
   }
   &__desc {
-    margin: 5px 0 0;
+    margin: 0 0 5px;
+    font-size: $font-size-6;
   }
+
+  &__delete-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+}
+
+.delete-pop-out {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: white;
+  border: 1px solid black;
 }
 </style>

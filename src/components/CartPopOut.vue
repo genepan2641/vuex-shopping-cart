@@ -1,7 +1,12 @@
 <template>
     <div class="cart-pop-out">
         <div class="cart-pop-out__items-wrapper">
-            <div class="cart-item" v-for="item in cart.cartList" :key="`${item.hash}${item.size}`">
+          <cart-pop-out-item 
+            v-for="(item, index) in cart.cartList" 
+            :index="index"
+            :key="`${item.hash}${item.size}`">
+          </cart-pop-out-item>
+            <!-- <div class="cart-item" v-for="item in cart.cartList" :key="`${item.hash}${item.size}`">
                 <div class="cart-item__img-wrapper">
                     <div class="cart-item__img-inner">
                         <img class="cart-item__img" :src="`/static/images/${item.image}`" alt="">
@@ -12,8 +17,7 @@
                     <p class="cart-item__desc">{{ item.size }} x {{ item.amount }}</p>
                     <p class="cart-item__desc">NT$ {{ item.price }}</p>
                 </div>
-                <!-- <button @click="deleteCart(item.hash, item.size)">delete</button> -->
-            </div>
+            </div> -->
 
             <p>total: <span class="boldest">NT${{ cart.totalPrice }}</span></p>
         </div>
@@ -25,8 +29,12 @@
 </template>
 
 <script>
+import CartPopOutItem from '@/components/CartPopOutItem.vue';
 import { mapState } from 'vuex';
 export default {
+  components: {
+    CartPopOutItem
+  },
   computed: {
     ...mapState(['cart'])
   }
@@ -47,41 +55,6 @@ export default {
   &__btns-wrapper {
     padding: 10px;
     display: flex;
-  }
-}
-
-.cart-item {
-  display: flex;
-  margin-bottom: 5px;
-  &__img-wrapper {
-    flex: 1 1 30px;
-    margin-right: 10px;
-  }
-  &__img-inner {
-    padding-top: 100%;
-    position: relative;
-    img {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      max-width: 100%;
-      max-height: 100%;
-    }
-  }
-
-  &__right {
-    flex: 2 1 150px;
-  }
-
-  &__title {
-    display: inline-block;
-    height: 40px;
-    margin: 0 0 10px;
-  }
-  &__desc {
-    margin: 0 0 5px;
-    font-size: $font-size-6;
   }
 }
 
