@@ -4,7 +4,12 @@
             <div class="cart-page-container">
                 <div class="cart-page__left">
                     <div class="cart-items-container">
-                        <div class="cart-item" v-for="item in cart.cartList" :key="`${item.hash}${item.size}`">
+                        <cart-item 
+                            v-for="(item, index) in cart.cartList" 
+                            :index="index"
+                            :key="`${item.hash}${item.size}`">
+                        </cart-item>
+                        <!-- <div class="cart-item" v-for="item in cart.cartList" :key="`${item.hash}${item.size}`">
 
                             <router-link :to="{name: 'productItem', params: {hash: item.hash}}" class="cart-item__img-wrapper">
                                 <div class="cart-item__img-inner">
@@ -17,7 +22,7 @@
                                 <p class="cart-item__desc">NT$ {{ item.price }}</p>
                             </div>
                             <button @click="deleteCart(item.hash, item.size)">delete</button>
-                        </div>
+                        </div> -->
                     </div>
                 </div>
                 <div class="cart-page__right">
@@ -39,14 +44,15 @@
 
 <script>
 import { mapState } from 'vuex';
+import CartItem from '@/components/CartItem.vue';
 export default {
+    components: {
+        CartItem
+    },
     computed: {
         ...mapState(['cart'])
     },
     methods: {
-        deleteCart(hash, size) {
-            this.$store.dispatch('cart/deleteCart', { hash, size });
-        }
     }
 }   
 </script>
@@ -67,36 +73,5 @@ export default {
 .cart-items-container {
   height: 80vh;
   overflow-y: scroll;
-}
-.cart-item {
-  display: flex;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  &:not(:last-child) {
-    border-bottom: 1px solid black;
-  }
-  &__img-wrapper {
-    flex-basis: 100px;
-    overflow: hidden;
-    margin-right: 10px;
-  }
-  &__img-inner {
-    padding-top: 100%;
-    position: relative;
-  }
-  &__img {
-    @include img-frame__img();
-    max-width: 100%;
-    max-height: 100%;
-  }
-  &__right {
-    flex: 1;
-  }
-  &__title {
-    margin: 0 0 10px;
-  }
-  &__desc {
-    margin: 5px 0 0;
-  }
 }
 </style>
