@@ -5,6 +5,14 @@ const cart = {
         cartList: [],
         totalPrice: 0,
     },
+    getters: {
+        // 總共幾件商品
+        totalItems: (state) => {
+            return state.cartList.reduce((prev, curr) => {
+                return prev + curr.amount;
+            }, 0)
+        }
+    },
     mutations: {
         ['UPDATE_PRICE'](state, newPrice) {
             state.totalPrice = newPrice;
