@@ -32,6 +32,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "~@/assets/sass/_variables";
+
 .product-items-wrapper {
 	max-width: 1200px;
 	margin: auto;
@@ -40,7 +42,16 @@ export default {
 }
 
 .link-wrapper {
-	width: calc(100% / 4);
+	// width: calc(100% / 4);
 	padding: 10px 5px;
+	width: calc(100% / 4);
+
+	@include for-size(tablet-sm-down) {
+		width: calc(100% / 3);
+	}
+
+	@include for-size(phone-only) {
+		width: 100%;
+	}
 }
 </style>

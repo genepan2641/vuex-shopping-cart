@@ -3,7 +3,7 @@ $font-size-2: 3.2rem;
 $font-size-3: 2.4rem;
 $font-size-4: 1.8rem;
 $font-size-5: 1.4rem;
-$font-size-6: 1.2rem;
+$font-size-6: 1rem;
 
 
 $colors:(primary: #c0dfd9,
@@ -16,4 +16,102 @@ light: #e9ece5);
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+
+@mixin for-size($size) {
+    $phone-upper-bound: 700px;
+    $tablet-sm-upper-bound: 900px;
+    $tablet-lg-upper-bound: 1200px;
+    $desktop-upper-bound: 1600px;
+
+    //for 5s/se
+    @if $size==iphone5-only {
+        @media (max-width: 320px) {
+            @content;
+        }
+    }
+
+    @else if $size==phone-only {
+        @media (max-width: $phone-upper-bound) {
+            @content;
+        }
+    }
+
+    //大於手機
+    @else if $size==phone-up {
+        @media (min-width: #{$phone-upper-bound + 1}) {
+            @content;
+        }
+    }
+
+    //小於(包含)小平板/*  */
+    @else if $size==tablet-sm-down {
+        @media (max-width: $tablet-sm-upper-bound) {
+            @content;
+        }
+    }
+
+    //大於(包含)小平板
+    @else if $size==tablet-sm-up {
+        @media (min-width: $phone-upper-bound) {
+            @content;
+        }
+    }
+
+    //小於(包含)大平板
+    @else if $size==tablet-lg-down {
+        @media (max-width: $tablet-lg-upper-bound) {
+            @content;
+        }
+    }
+
+    //小於小螢幕電腦
+    // @else if $size==desktop-sm-down {
+    //     @media (min-width: 1025px) {
+    //         @content;
+    //     }
+    // }
+
+    // 小於一般桌機
+    @else if $size==desktop-down {
+        @media (max-width: $desktop-upper-bound) {
+            @content;
+        }
+    }
+
+    //大於(包含)一般桌機
+    @else if $size==desktop-up {
+        @media (min-width: $tablet-lg-upper-bound) {
+            @content;
+        }
+    }
+
+    //大於(包含)大螢幕桌機
+    @else if $size==desktop-lg-up {
+        @media (min-width: $desktop-upper-bound) {
+            @content;
+        }
+    }
+
+    //只有小平板
+    @else if $size==tablet-sm-only {
+        @media (min-width: $phone-upper-bound) and (max-width: $tablet-sm-upper-bound) {
+            @content;
+        }
+    }
+
+    //只有大平板
+    @else if $size==tablet-lg-only {
+        @media (min-width: $tablet-sm-upper-bound) and (max-width: $tablet-lg-upper-bound) {
+            @content;
+        }
+    }
+
+    // 只有一般桌機
+    @else if $size==desktop-only {
+        @media (min-width: $tablet-lg-upper-bound) and (max-width: $desktop-upper-bound) {
+            @content;
+        }
+    }
 }

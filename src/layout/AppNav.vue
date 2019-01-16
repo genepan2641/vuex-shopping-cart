@@ -3,6 +3,10 @@
 		<div class="app-nav-container">
 			<router-link class="app-nav__link" :to="{name: 'productList'}">Product List</router-link>
 
+			<div class="app-nav__logo-wrapper">
+				<router-link class="app-nav__logo" :to="{name: 'productList'}">ASAP</router-link>
+			</div>
+
 			<a class="app-nav__link cart-pop-out__trigger" @click.prevent="() => showCart = !showCart">
 				<span class="link-badge" :class="{'link-badge--active' : totalItems>0}">{{ totalItems }}</span>
 				My Cart
@@ -37,6 +41,7 @@ export default {
 </script>
 
 <style lang="scss">
+@import "@/assets/sass/_variables.scss";
 .app-nav-container {
 	max-width: 960px;
 	margin: auto;
@@ -47,6 +52,19 @@ export default {
 	height: 65px;
 	background-color: white;
 	border-bottom: 1px solid #eee;
+	&__logo-wrapper {
+		padding-top: 15px;
+	}
+
+	&__logo {
+		font-weight: 900;
+		font-size: $font-size-3;
+		transition: 200ms all ease-in;
+		&:hover {
+			color: lighten(black, 30%);
+		}
+	}
+
 	&__link {
 		flex-basis: 120px;
 		text-align: center;
@@ -55,6 +73,11 @@ export default {
 		background: black;
 		color: white;
 		cursor: pointer;
+		transition: 200ms all ease-in;
+
+		&:hover {
+			background-color: lighten(black, 30%);
+		}
 	}
 	&__cart-pop-mask {
 		position: absolute;

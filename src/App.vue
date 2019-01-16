@@ -50,6 +50,7 @@ html {
 a {
 	text-decoration: none;
 	font-size: $font-size-5;
+	color: black;
 }
 
 button {

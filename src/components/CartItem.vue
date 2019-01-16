@@ -60,9 +60,7 @@ export default {
 	margin-bottom: 20px;
 	padding-bottom: 20px;
 	padding-right: 10px;
-	&:not(:last-child) {
-		border-bottom: 1px solid black;
-	}
+	border-bottom: 1px solid #eee;
 	&__img-wrapper {
 		flex-basis: 100px;
 		overflow: hidden;
