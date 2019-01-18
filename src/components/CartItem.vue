@@ -5,7 +5,7 @@
 			class="cart-item__img-wrapper"
 		>
 			<div class="cart-item__img-inner">
-				<img class="cart-item__img" :src="`/static/images/${cartItem.image}`" alt>
+				<img class="cart-item__img" :src="`static/images/${cartItem.image}`" alt>
 			</div>
 		</router-link>
 		<div class="cart-item__right">
